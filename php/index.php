@@ -176,17 +176,18 @@
                             $zi=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
 
                             for ($x = 0; $x < 5; $x++) { //pana vineri
-
+                                 
                                 $query = "SELECT * FROM lectii WHERE ziua = '$zi[$x]' ORDER BY start_hour;";
                                 $query_run = mysqli_query($conn, $query);
-
+                                $rowcount = mysqli_num_rows($query_run);
+                                echo'
+                                 <td align="center" rowspan= "' .$rowcount ; echo ' " > '.$zi[$x];echo '</td> '
+                                ?><?php
                                 if(mysqli_num_rows($query_run) > 0)
                                 {
                                     foreach($query_run as $lectii)
                                     {
                                         ?>
-                                        <tr>
-                                            <td><?= $lectii['ziua']; ?></td>
                                             <td><?= $lectii['lectia']; ?></td>
                                             <td><?= $lectii['start_hour']; ?></td>
                                             <td><?= $lectii['end_hour']; ?></td>
@@ -198,7 +199,6 @@
                                                 </form>
                                             </td>
                                         </tr>
-                                        
                                         <?php
                                     }
                                 }

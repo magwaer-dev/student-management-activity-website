@@ -43,7 +43,7 @@ if(isset($_POST['update_lectie']))
     }
     else
     {
-        $_SESSION['message'] = "Lecția nu a fost Actualizată! :(";
+        $_SESSION['message'] = "Oră incorectă! :(";
         header("Location: ../php/index.php");
         exit(0);
     }
@@ -69,7 +69,7 @@ if(isset($_POST['save_lectie']))
     }
     else
     {
-        $_SESSION['message'] = "Operațiune nereușită! :(";
+        $_SESSION['message'] = "Oră incorectă! :(";
         header("Location: lectie-create.php");
         exit(0);
     }

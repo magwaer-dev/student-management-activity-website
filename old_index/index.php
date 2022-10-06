@@ -228,7 +228,6 @@ while($row = mysqli_fetch_assoc($rez)) {
   $i+=1;
 }
 echo '</table>';
-
 echo '<br> ';
 
 
