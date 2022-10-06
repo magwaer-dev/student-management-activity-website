@@ -161,8 +161,8 @@
             </div>
             <div class="card-body">
 
-                <table class="table table-bordered table-striped">
-                    <thead>
+                <table cellspacing="2"  class="table table-bordered table-striped">
+                    <thead >
                         <tr>
                             <th>Ziua</th>
                             <th>Lecția</th>
@@ -171,18 +171,18 @@
                             <th>Acțiune</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="vertical-align: middle;" > <!--aliniere pe centru la „luni”...-->
                         <?php 
                             $zi=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
 
                             for ($x = 0; $x < 5; $x++) { //pana vineri
                                  
-                                $query = "SELECT * FROM lectii WHERE ziua = '$zi[$x]' ORDER BY start_hour;";
+                                $query = "SELECT * FROM lectii WHERE ziua = '$zi[$x]' ORDER BY start_hour;"; //sortează după început
                                 $query_run = mysqli_query($conn, $query);
                                 $rowcount = mysqli_num_rows($query_run);
                                 echo'
-                                 <td align="center" rowspan= "' .$rowcount ; echo ' " > '.$zi[$x];echo '</td> '
-                                ?><?php
+                                 <td style="font-weight:bold;" rowspan= "' .$rowcount ; echo ' " > '.$zi[$x];echo '</td> '
+                                ?> <?php  //rowspan în f-ie de nr. de lecții pe fiecare zi în parte
                                 if(mysqli_num_rows($query_run) > 0)
                                 {
                                     foreach($query_run as $lectii)
@@ -191,8 +191,7 @@
                                             <td><?= $lectii['lectia']; ?></td>
                                             <td><?= $lectii['start_hour']; ?></td>
                                             <td><?= $lectii['end_hour']; ?></td>
-                                            <td>
-                                    
+                                            <td>                                    
                                                 <a href="../crud/lectie-edit.php?id_lectie=<?= $lectii['id_lectie']; ?>" class="btn btn-success btn-sm">Editează</a>
                                                 <form action="../crud/code.php" method="POST" class="d-inline">
                                                     <button type="submit" name="delete_lectie" value="<?=$lectii['id_lectie'];?>" class="btn btn-danger btn-sm">Șterge</button>
