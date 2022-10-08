@@ -6,11 +6,11 @@
     $timestamp = strtotime($date);
     $day = date('D', $timestamp); // din 08-10-2022 transformă în Sat, adică sâmbătă
     $i= array_search($day, $days); //returnează index-ul lui Sat din array-ul $days
-    $sql = "SELECT  *,COUNT(*) as total FROM lectii WHERE 
-        lectii.start_hour BETWEEN '".$start_event."' AND '".$end_event."'
-        AND ziua = '$zile[$i]'
-        OR lectii.end_hour BETWEEN '".$start_event."' AND '".$end_event. "'
-        AND ziua = '$zile[$i]'";
+    $sql = "SELECT  *,COUNT(*) as total FROM lectii WHERE ziua = '$zile[$i]'
+        AND (
+        ('".$start_event."' BETWEEN lectii.start_hour AND lectii.end_hour)
+        OR ( '".$end_event."' BETWEEN lectii.start_hour AND lectii.end_hour )
+        )";
     $res = $conn->query($sql);
     $value = mysqli_fetch_assoc($res);
     echo $value['total'];
