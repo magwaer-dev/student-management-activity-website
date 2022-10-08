@@ -26,7 +26,7 @@
         tasks.start_event BETWEEN '".$start_event."' AND '".$end_event."'
         AND tasks.date = '$date'
         OR tasks.end_event BETWEEN '".$start_event."' AND '".$end_event. "'
-        AND ziua = '$zile[$i]'";
+        AND ziua = '$date'";
     $res = $conn->query($sql);
     $value = mysqli_fetch_assoc($res);
     echo $value['total'];
