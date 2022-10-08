@@ -49,9 +49,9 @@ require '../php/conectare.php';
                                     <input type="hidden" name="id_lectie" value="<?= $lectii['id_lectie']; ?>">
 
                                     <div class="mb-3">
-                                        <label>Ziua</label>
+                                        <label>Ziua</label> <!-- să fie ziua pusă corect -->
                                         <select name="ziua"class="form-control" method="POST" >
-                                          <option value="Luni" selected="selected" disabled="disabled">-Ziua-</option>
+                                        <option value="<?=$lectii['ziua'];?>" selected="selected"> <?=$lectii['ziua'];?> </option>
                                           <option value="Luni">Luni</option>
                                           <option value="Marți">Marți</option>
                                           <option value="Miercuri">Miercuri</option>

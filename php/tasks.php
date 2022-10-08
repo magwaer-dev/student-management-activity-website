@@ -1,107 +1,89 @@
+<?php
+    session_start();
+    require '../php/conectare.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orar</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="../css/stylee.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <title>Task-uri</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/stylee.css" rel="stylesheet">
+    
 </head>
 
 <body>
-  <div id="content">
-    
-    <div class="aaa">
-      <div class="navbar">
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="index.php">Orar</a>
-            
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-           <a href="#">Task-uri</a>
-            
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="calendar.php">Calendar</a>
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="history.php">Istoric</a>
-          </button>
-        </div> 
-      </div>
+   <?php require '../php/navbar.php'; ?>
+
+  <div id="content2">
+
+<?php include('../crud/message.php'); ?>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Task-uri
+                    <a href="../crud/task-create.php" class="btn btn-primary float-end">Adaugă task</a>
+                </h4>
+            </div>
+            <div class="card-body">
+                <table cellspacing="2" class="table table-bordered table-striped">
+                    <thead >
+                        <tr>
+                          <th>Numele</th>  
+                          <th>Data</th>  
+                          <th>Început</th>
+                          <th>Sfârșit</th>
+                          <th>Acțiuni</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <?php    
+                        $zile=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
+                        $days=array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun");               
+                            $query = "SELECT * FROM tasks ORDER BY tasks.date, tasks.start_event;"; //sortează după data și inceput
+                            $query_run = mysqli_query($conn, $query);
+                            $rowcount = mysqli_num_rows($query_run);
+                            if(mysqli_num_rows($query_run) > 0)
+                            {
+                                foreach($query_run as $tasks)
+                                {
+                                $timestamp = strtotime($tasks['date']);
+                                $day = date('D', $timestamp); // din 08-10-2022 transformă în Sat
+                                $i= array_search($day, $days);
+                                ?>                                        
+                                    <td><?= $tasks['title']; ?></td>
+                                    <td><?=$zile[$i].date(', d-m-Y', strtotime($tasks['date'])); ?></td>
+                                    <!--   //formatul datei să fie: Tue, 08-10-2022 -->
+                                    <td><?= $tasks['start_event']; ?></td>
+                                    <td><?= $tasks['end_event']; ?></td>
+                                    <td>                                    
+                                        <a href="../crud/task-edit.php?id_task=<?= $tasks['id_task']; ?>" class="btn btn-success btn-sm">Editează</a>
+                                        <form action="../crud/code_tasks.php" method="POST" class="d-inline">
+                                            <button type="submit" name="delete_task" value="<?=$tasks['id_task'];?>" class="btn btn-danger btn-sm">Șterge</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
+                                }
+                            }
+                            else { echo "<h5> Nu au fost găsite înregistrări </h5>"; }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+</div>
+</div>
 
-      <?php
-      require_once('conectare.php');
-      echo'
-        <form method="GET">
-        <br>Introduceți task-ul nou<br><br>
-        <input type="text" name="title" method="GET" placeholder="Task-ul" >
-        <label for="start_event">Alege ora:</label>
-        <input type="datetime-local" id="start_event" name="start_event"  required method="GET">
-        <input type="datetime-local" id="end_event" name="end_event" m required method="GET" >
-              <input name="submit1" type="submit" class="btn btn-primary" style="background-color: #FD6435; border-color: #FD6435" value="Adaugă"><br>
-        </form>';
-        
-        if(isset($_GET['title'])) 
-        { 
-    
-          $title = $_GET['title'];
-          $start_event = $_GET['start_event'];
-          $end_event = $_GET['end_event'];
 
-          $sql1 = "INSERT INTO `tasks` (`title`, `start_event`, `end_event`) VALUES
-          ('$title', '$start_event',  '$end_event');";
-          $res1 = mysqli_query($conn, $sql1);
-          if( (!$res1) && (isset($_GET['submit1'])) ){
-          echo '<p style="color:red">Eroare la introducere</p>';
-          }
-          else {          
-               echo '<p style="color:green">Datele au fost introduse cu succes</p>';
-              //header('location:tasks.php');
+</body>
+</html>
 
-          }   
-        } 
-
-echo '<br> <br>';
-require_once('conectare.php');
-
-$i = 1;
-$zi="Vineri";
-$sql = "SELECT * FROM tasks ;";
-
-echo '
-Lista task-urilor
-  <table width="90%" border="1" cellspacing="2">
-  <tr>
-  <th><b>Numele</b></th>  
-  <th><b>Început</b></th>
-  <th><b>Sfârșit</b></th>
-</tr><br> <br>
-';
-
-$rez = mysqli_query($conn, $sql);
-while($row = mysqli_fetch_assoc($rez)) {  
-  $sqli = "SELECT title FROM tasks WHERE id_task =".$row['id_task'].";";
-  $count = mysqli_query($conn, $sqli);
-  $ro = mysqli_fetch_assoc($count);
-  
-  echo'<td align="center">'.$ro['title'].'</td>';
-  echo'<td align="center">'.$row['start_event'].'</td>';
-  echo'<td align="center">'.$row['end_event'].'</td> </tr>';
-  $i+=1;
-}
-echo '</table>';
-echo '<br> <br>';
-?>
-
-</div></body></html>

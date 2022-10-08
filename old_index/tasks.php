@@ -11,14 +11,36 @@
 </head>
 
 <body>
-  <?php require '../php/navbar.php'; ?>
-
   <div id="content">
     
-      <?php
-      
-echo '<br> ';
+    <div class="aaa">
+      <div class="navbar">
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="index.php">Orar</a>
+            
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+           <a href="#">Task-uri</a>
+            
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="calendar.php">Calendar</a>
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="history.php">Istoric</a>
+          </button>
+        </div> 
+      </div>
+    </div>
 
+      <?php
       require_once('conectare.php');
       echo'
         <form method="GET">
@@ -51,26 +73,22 @@ echo '<br> ';
               //header('location:tasks.php');
 
 
-$zile=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
-$days=array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun");
+
+
+
 
 
                $timestamp = strtotime($date);
 
             $day = date('D', $timestamp);
-            echo $day.'<br>';
+            echo $day;
 
-
-            $i= array_search($day, $days); //returnează index-ul
-            echo $i.'<br>';
             $sql = "SELECT  COUNT(*) as total FROM lectii WHERE 
                     lectii.start_hour BETWEEN '".$start_event."' AND '".$end_event."'
-                    AND ziua = '$zile[$i]'
                     AND lectii.end_hour BETWEEN '".$start_event."' AND '".$end_event. "'";
 $res = $conn->query($sql);
 $value = mysqli_fetch_assoc($res);
 echo $value['total'];
-
 echo '<br>';
 $datee=date('d-m-Y', strtotime($_GET['date']));
 echo $datee;
@@ -107,7 +125,7 @@ while($row = mysqli_fetch_assoc($rez)) {
   $ro = mysqli_fetch_assoc($count);
   
   echo'<td align="center">'.$ro['title'].'</td>';
-  echo'<td align="center">'.date('d-m-Y', strtotime($row['date'])).'</td>';
+  echo'<td align="center">'.date('d-m-Y', strtotime($_GET['date'])).'</td>';
   //formatul datei să fie: 08-10-2022
   echo'<td align="center">'.$row['start_event'].'</td>';
   echo'<td align="center">'.$row['end_event'].'</td> </tr>';
