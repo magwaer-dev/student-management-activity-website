@@ -1,5 +1,4 @@
 <?php
-//aesrdtfgyhujiok
 //verificăm dacă există lecții în ziua și la ora task-ul nou
     $zile=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
     $days=array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun");
@@ -23,11 +22,11 @@
     }
 
 //verificăm dacă există alte task-uri în ziua și la ora task-ul nou
-    $sql = "SELECT  *,COUNT(*) as total FROM tasks WHERE 
-        tasks.start_event BETWEEN '".$start_event."' AND '".$end_event."'
-        AND tasks.date = '$date'
-        OR tasks.end_event BETWEEN '".$start_event."' AND '".$end_event. "'
-        AND ziua = '$date'";
+    $sql = "SELECT  *,COUNT(*) as total FROM tasks WHERE tasks.date = '$date'
+        AND (
+        ('".$start_event."' BETWEEN tasks.start_event AND tasks.end_event)
+        OR ( '".$end_event."' BETWEEN tasks.start_event AND tasks.end_event )
+        )";
     $res = $conn->query($sql);
     $value = mysqli_fetch_assoc($res);
     echo $value['total'];

@@ -32,6 +32,9 @@ if(isset($_POST['update_task']))
     $end_event = mysqli_real_escape_string($conn, $_POST['end_event']);
 
     $query = "UPDATE tasks SET tasks.date='$date', title='$title', start_event='$start_event', end_event='$end_event' WHERE id_task='$id_task' ";
+
+    require '../crud/verify.php';
+
     $query_run = mysqli_query($conn, $query);
 
     if( ($query_run) && ($end_event>$start_event) && ($date>'2000-01-01') ) //inceput: 8:00 , sfarsit: 7:30 --gresit!!! Și data trebuie setată.
@@ -59,8 +62,7 @@ if(isset($_POST['save_task']))
 
     require '../crud/verify.php';
 
-//inscriem task-ul nou
-    
+//inscriem task-ul nou    
 
     $query_run = mysqli_query($conn, $query);
     if ($query_run) //inceput: 8:00 , sfarsit: 7:30 --gresit!!!
