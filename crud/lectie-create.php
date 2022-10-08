@@ -38,7 +38,7 @@ session_start();
                             <div class="mb-3">
                                 <label>Ziua</label>
                                 <select name="ziua"class="form-control" method="POST" >
-                                  <option value="Luni" selected="selected" disabled="disabled">-Ziua-</option>
+                                  <option value="" selected="selected" >-Ziua-</option>
                                   <option value="Luni">Luni</option>
                                   <option value="Marți">Marți</option>
                                   <option value="Miercuri">Miercuri</option>

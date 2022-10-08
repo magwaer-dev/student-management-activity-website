@@ -11,44 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Orar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/stylee.css" rel="stylesheet">
-    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 
-<body>
-  <div id="content">
-    
-    <div class="aaa">
-      <div class="navbar">
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="#">Orar</a>
-            
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-           <a href="tasks.php">Task-uri</a>
-            
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="calendar.php">Calendar</a>
-          </button>
-        </div> 
-        <div class="dropdown">
-          <button class="dropbtn">
-            <a href="history.php">Istoric</a>
-          </button>
-        </div> 
-      </div>
-    </div>
+<body >
+<?php require '../php/navbar.php'; ?>
 
-<br>
-    <table border=1 cellspacing="0">
-
+  <div id="content2">
+    <div id="content">
+    <table  border=1 cellspacing="0" >
         <tr> 
          <th colspan="6"> Orarul gr. IA-202</th>
         </tr>
@@ -85,11 +58,7 @@
         </tr>
         <tr>
             <th colspan="6"> pauza 15 min </th>
-        </tr>
-           
-        
-        
-        
+        </tr>     
            <tr>
             <th> 11:30/13:00 </th>
             <td>curs Antrep</td>
@@ -139,6 +108,7 @@
            </tr>
         
         </table>
+    </div>
  <div>
 
   <!-- <div class="container">
@@ -161,28 +131,29 @@
             </div>
             <div class="card-body">
 
-                <table class="table table-bordered table-striped">
-                    <thead>
+                <table cellspacing="2" style="vertical-align: middle;" class="table table-bordered table-striped">
+                    <thead >
                         <tr>
                             <th>Ziua</th>
                             <th>Lecția</th>
                             <th>Începe ora</th>
                             <th>Termină ora</th>
-                            <th>Acțiune</th>
+                            <th>Acțiuni</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody > <!--aliniere pe centru la „luni”...-->
                         <?php 
                             $zi=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
 
-                            for ($x = 0; $x < 5; $x++) { //pana vineri
+                            for ($x = 0; $x < 7; $x++) { //pana duminica
                                  
-                                $query = "SELECT * FROM lectii WHERE ziua = '$zi[$x]' ORDER BY start_hour;";
+                                $query = "SELECT * FROM lectii WHERE ziua = '$zi[$x]' ORDER BY start_hour;"; //sortează după început
                                 $query_run = mysqli_query($conn, $query);
                                 $rowcount = mysqli_num_rows($query_run);
                                 echo'
-                                 <td align="center" rowspan= "' .$rowcount ; echo ' " > '.$zi[$x];echo '</td> '
-                                ?><?php
+                                 <td style="font-weight:bold; " rowspan= "' .$rowcount; 
+                                 if ($rowcount==0) {continue;} //dacă ziua nu are înreg, nu e afisata
+                                 echo ' " > '.$zi[$x]; echo '</td> ' ?> <?php  //rowspan în f-ie de nr. de lecții pe fiecare zi în parte
                                 if(mysqli_num_rows($query_run) > 0)
                                 {
                                     foreach($query_run as $lectii)
@@ -191,8 +162,7 @@
                                             <td><?= $lectii['lectia']; ?></td>
                                             <td><?= $lectii['start_hour']; ?></td>
                                             <td><?= $lectii['end_hour']; ?></td>
-                                            <td>
-                                    
+                                            <td>                                    
                                                 <a href="../crud/lectie-edit.php?id_lectie=<?= $lectii['id_lectie']; ?>" class="btn btn-success btn-sm">Editează</a>
                                                 <form action="../crud/code.php" method="POST" class="d-inline">
                                                     <button type="submit" name="delete_lectie" value="<?=$lectii['id_lectie'];?>" class="btn btn-danger btn-sm">Șterge</button>
@@ -204,12 +174,11 @@
                                 }
                                 else
                                 {
-                                    echo "<h5> No Record Found </h5>";
+                                    echo "<h5> Nu au fost găsite înregistrări </h5>";
                                 }
                             }
                         ?>
                     </tbody>
-
 
  </div>
 </div>

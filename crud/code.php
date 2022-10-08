@@ -11,13 +11,13 @@ if(isset($_POST['delete_lectie']))
 
     if($query_run)
     {
-        $_SESSION['message'] = "Lecția a fost Ștearsa cu Succes!";
+        $_SESSION['message'] = "Lecția a fost Ștearsă cu Succes!";
         header("Location: ../php/index.php");
         exit(0);
     }
     else
     {
-        $_SESSION['message'] = "Lecția nu a fost Ștearsa! :(";
+        $_SESSION['message'] = "Lecția nu a fost Ștearsă! :(";
         header("Location: ../php/index.php");
         exit(0);
     }
@@ -43,7 +43,7 @@ if(isset($_POST['update_lectie']))
     }
     else
     {
-        $_SESSION['message'] = "Oră incorectă! :(";
+        $_SESSION['message'] = "Lecția nu a fost Actualizată, oră incorectă! :(";
         header("Location: ../php/index.php");
         exit(0);
     }
@@ -69,7 +69,7 @@ if(isset($_POST['save_lectie']))
     }
     else
     {
-        $_SESSION['message'] = "Oră incorectă! :(";
+        $_SESSION['message'] = "Lecția nu a fost Creată, oră incorectă! :(";
         header("Location: lectie-create.php");
         exit(0);
     }
