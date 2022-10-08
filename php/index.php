@@ -132,6 +132,7 @@
             <div class="card-body">
 
                 <table cellspacing="2" style="vertical-align: middle;" class="table table-bordered table-striped">
+
                     <thead >
                         <tr>
                             <th>Ziua</th>
@@ -141,7 +142,9 @@
                             <th>Acțiuni</th>
                         </tr>
                     </thead>
+
                     <tbody > <!--aliniere pe centru la „luni”...-->
+
                         <?php 
                             $zi=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
 
@@ -151,9 +154,11 @@
                                 $query_run = mysqli_query($conn, $query);
                                 $rowcount = mysqli_num_rows($query_run);
                                 echo'
+
                                  <td style="font-weight:bold; " rowspan= "' .$rowcount; 
                                  if ($rowcount==0) {continue;} //dacă ziua nu are înreg, nu e afisata
                                  echo ' " > '.$zi[$x]; echo '</td> ' ?> <?php  //rowspan în f-ie de nr. de lecții pe fiecare zi în parte
+
                                 if(mysqli_num_rows($query_run) > 0)
                                 {
                                     foreach($query_run as $lectii)
