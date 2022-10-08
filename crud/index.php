@@ -12,7 +12,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <title>Lectie CRUD</title>
+    <title>Student CRUD</title>
 </head>
 <body>
   
@@ -24,8 +24,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Orar
-                            <a href="lectie-create.php" class="btn btn-primary float-end">Adauga lectie</a>
+                        <h4>Student Details
+                            <a href="student-create.php" class="btn btn-primary float-end">Adauga lectie</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -58,10 +58,10 @@
                                                 <td><?= $lectii['start_hour']; ?></td>
                                                 <td><?= $lectii['end_hour']; ?></td>
                                                 <td>
-                                        
-                                                    <a href="lectie-edit.php?id_lectie=<?= $lectii['id_lectie']; ?>" class="btn btn-success btn-sm">Edit</a>
+                                                    <a href="student-view.php?id=<?= $student['id_lectie']; ?>" class="btn btn-info btn-sm">View</a>
+                                                    <a href="student-edit.php?id=<?= $student['id_lectie']; ?>" class="btn btn-success btn-sm">Edit</a>
                                                     <form action="code.php" method="POST" class="d-inline">
-                                                        <button type="submit" name="delete_lectie" value="<?=$lectii['id_lectie'];?>" class="btn btn-danger btn-sm">Delete</button>
+                                                        <button type="submit" name="delete_student" value="<?=$student['id'];?>" class="btn btn-danger btn-sm">Delete</button>
                                                     </form>
                                                 </td>
                                             </tr>

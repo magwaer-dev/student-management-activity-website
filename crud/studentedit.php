@@ -12,13 +12,10 @@ require '../php/conectare.php';
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/stylee.css" rel="stylesheet">
 
-    <title>Task Edit</title>
+    <title>Student Edit</title>
 </head>
 <body>
-
-<div id="content">
   
     <div class="container mt-5">
 
@@ -28,45 +25,45 @@ require '../php/conectare.php';
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Actualizează Task
-                            <a href="../php/tasks.php" class="btn btn-danger float-end">Înapoi</a>
+                        <h4>Student Edit 
+                            <a href="index.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
 
                         <?php
-                        if(isset($_GET['id_task']))
+                        if(isset($_GET['id']))
                         {
-                            $id_task = mysqli_real_escape_string($conn, $_GET['id_task']);
-                            $query = "SELECT * FROM tasks WHERE id_task='$id_task' ";
-                            $query_run = mysqli_query($conn, $query);
+                            $student_id = mysqli_real_escape_string($con, $_GET['id']);
+                            $query = "SELECT * FROM student WHERE id='$student_id' ";
+                            $query_run = mysqli_query($con, $query);
 
                             if(mysqli_num_rows($query_run) > 0)
                             {
-                                $tasks = mysqli_fetch_array($query_run);
+                                $student = mysqli_fetch_array($query_run);
                                 ?>
-                                <form action="code_tasks.php" method="POST">
-                                    <input type="hidden" name="id_task" value="<?= $tasks['id_task']; ?>">
-                                    
+                                <form action="code.php" method="POST">
+                                    <input type="hidden" name="student_id" value="<?= $student['id']; ?>">
+
                                     <div class="mb-3">
-                                        <label>Task-ul</label>
-                                        <input type="text" name="title" value="<?=$tasks['title'];?>" class="form-control">
+                                        <label>Student Name</label>
+                                        <input type="text" name="name" value="<?=$student['name'];?>" class="form-control">
                                     </div>
                                     <div class="mb-3">
-                                        <label>Data</label>
-                                        <input type="date" name="date" value="<?=$tasks['date'];?>" class="form-control">
-                                    </div>
-                                            <div class="mb-3">
-                                        <label>Începe la ora</label>
-                                        <input type="time" name="start_event" value="<?=$tasks['start_event'];?>" class="form-control">
+                                        <label>Student Email</label>
+                                        <input type="email" name="email" value="<?=$student['email'];?>" class="form-control">
                                     </div>
                                     <div class="mb-3">
-                                        <label>Termină la ora</label>
-                                        <input type="time" name="end_event" value="<?=$tasks['end_event'];?>" class="form-control">
+                                        <label>Student Phone</label>
+                                        <input type="text" name="phone" value="<?=$student['phone'];?>" class="form-control">
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" name="update_task" class="btn btn-primary">
-                                            Actualizează task-ul
+                                        <label>Student Course</label>
+                                        <input type="text" name="course" value="<?=$student['course'];?>" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <button type="submit" name="update_student" class="btn btn-primary">
+                                            Update Student
                                         </button>
                                     </div>
 
@@ -84,7 +81,7 @@ require '../php/conectare.php';
             </div>
         </div>
     </div>
-</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

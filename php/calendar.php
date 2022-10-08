@@ -10,9 +10,33 @@
 </head>
 
 <body>
-<?php require '../php/navbar.php'; ?>
-
-<a href="../php/index.php"><img src="../img/calendar.img"  class="center" width="50%"></a>
+  <div id="content">    
+    <div class="aaa">
+      <div class="navbar">
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="index.php">Orar</a>            
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+           <a href="tasks.php">Task-uri</a>            
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="#">Calendar</a>
+          </button>
+        </div> 
+        <div class="dropdown">
+          <button class="dropbtn">
+            <a href="history.php">Istoric</a>
+          </button>
+        </div> 
+      </div>
+    </div>
+  </div>
+    <a href="../php/index.php"><img src="../img/calendar.img"  class="center" width="50%"></a>
 
 </body>
 </html>
