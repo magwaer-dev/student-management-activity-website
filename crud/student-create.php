@@ -12,14 +12,10 @@ session_start();
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="../css/stylee.css" rel="stylesheet">
-
-    <title>Creează Lecție</title>
+    <title>Student Create</title>
 </head>
 <body>
-
-<div id="content">
-
+  
     <div class="container mt-5">
 
         <?php include('message.php'); ?>
@@ -28,8 +24,8 @@ session_start();
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Adaugă lecție 
-                            <a href="../php/index.php" class="btn btn-danger float-end">Înapoi</a>
+                        <h4>Adauga lectie 
+                            <a href="index.php" class="btn btn-danger float-end">Inapoi</a>
                         </h4>
                     </div>
                     <div class="card-body">
@@ -37,31 +33,22 @@ session_start();
 
                             <div class="mb-3">
                                 <label>Ziua</label>
-                                <select name="ziua"class="form-control" method="POST" >
-                                  <option value="" selected="selected" >-Ziua-</option>
-                                  <option value="Luni">Luni</option>
-                                  <option value="Marți">Marți</option>
-                                  <option value="Miercuri">Miercuri</option>
-                                  <option value="Joi">Joi</option>
-                                  <option value="Vineri">Vineri</option>
-                                  <option value="Sâmbătă">Sâmbătă</option>
-                                  <option value="Duminică">Duminică</option>
-                                </select> 
+                                <input type="text" name="name" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label>Lecția</label>
+                                <label>Lectia</label>
                                 <input type="text" name="lectia" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label>Începe ora</label>
-                                <input type="time" name="start_hour" min="05:00" max="23:00" class="form-control">
+                                <label>Incepe ora</label>
+                                <input type="time" name="time" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label>Termină ora</label>
-                                <input type="time" name="end_hour" min="05:00" max="23:00" class="form-control">
+                                <label>Termina ora</label>
+                                <input type="time" name="time" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <button type="submit" name="save_lectie" class="btn btn-primary">Salvează</button>
+                                <button type="submit" name="save_student" class="btn btn-primary">Salveaza</button>
                             </div>
 
                         </form>
@@ -70,7 +57,6 @@ session_start();
             </div>
         </div>
     </div>
-</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
