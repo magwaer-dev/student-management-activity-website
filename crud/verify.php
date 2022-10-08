@@ -1,4 +1,5 @@
 <?php
+//aesrdtfgyhujiok
 //verificăm dacă există lecții în ziua și la ora task-ul nou
     $zile=array("Luni", "Marți", "Miercuri", "Joi", "Vineri", "Sâmbătă", "Duminică");
     $days=array("Mon", "Tue", "Wen", "Thu", "Fri", "Sat", "Sun");
