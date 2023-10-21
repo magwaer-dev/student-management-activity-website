@@ -2,75 +2,85 @@
 session_start();
 require '../php/conectare.php';
 
-if(isset($_POST['delete_student']))
+if(isset($_POST['delete_lectie']))
 {
-    $student_id = mysqli_real_escape_string($con, $_POST['delete_student']);
+    $id_lectie = mysqli_real_escape_string($conn, $_POST['delete_lectie']);
 
-    $query = "DELETE FROM student WHERE id='$student_id' ";
-    $query_run = mysqli_query($con, $query);
+    $query = "DELETE FROM lectii WHERE id_lectie='$id_lectie' ";
+    $query_run = mysqli_query($conn, $query);
 
     if($query_run)
     {
-        $_SESSION['message'] = "Student Deleted Successfully";
-        header("Location: index.php");
+        $_SESSION['message'] = "Lecția a fost Ștearsă cu Succes!";
+        header("Location: ../log_reg/php/home.php");
         exit(0);
     }
     else
     {
-        $_SESSION['message'] = "Student Not Deleted";
-        header("Location: index.php");
+        $_SESSION['message'] = "Lecția nu a fost Ștearsă! :(";
+        header("Location: ../log_reg/php/home.php");
         exit(0);
     }
 }
 
-if(isset($_POST['update_student']))
+if(isset($_POST['update_lectie']))
 {
-    $student_id = mysqli_real_escape_string($con, $_POST['student_id']);
+    $id_lectie = mysqli_real_escape_string($conn, $_POST['id_lectie']);
 
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $email = mysqli_real_escape_string($con, $_POST['email']);
-    $phone = mysqli_real_escape_string($con, $_POST['phone']);
-    $course = mysqli_real_escape_string($con, $_POST['course']);
+    $ziua = mysqli_real_escape_string($conn, $_POST['ziua']);
+    $lectia = mysqli_real_escape_string($conn, $_POST['lectia']);
+    $start_hour = mysqli_real_escape_string($conn, $_POST['start_hour']);
+    $end_hour = mysqli_real_escape_string($conn, $_POST['end_hour']);
 
-    $query = "UPDATE student SET name='$name', email='$email', phone='$phone', course='$course' WHERE id='$student_id' ";
-    $query_run = mysqli_query($con, $query);
+  //  $query = "UPDATE lectii SET ziua='$ziua', lectia='$lectia', start_hour='$start_hour', end_hour='$end_hour' WHERE id_lectie='$id_lectie' ";
 
-    if($query_run)
+    $id = $_POST['id_lectie'];
+
+    require '../crud/verify_update_lectii.php';
+
+
+    $query_run = mysqli_query($conn, $query);
+
+    if( ($query_run) && ($end_hour>$start_hour) ) //inceput: 8:00 , sfarsit: 7:30 --gresit!!!
     {
-        $_SESSION['message'] = "Student Updated Successfully";
-        header("Location: index.php");
+        $_SESSION['message'] = "Lecția a fost Actualizată cu Succes!";
+        header("Location: ../log_reg/php/home.php");
         exit(0);
     }
     else
     {
-        $_SESSION['message'] = "Student Not Updated";
-        header("Location: index.php");
+        $_SESSION['message'] = "Lecția nu a fost Actualizată, oră incorectă! :(";
+        header("Location: ../log_reg/php/home.php");
         exit(0);
     }
 
 }
 
 
-if(isset($_POST['save_student']))
+if(isset($_POST['save_lectie']))
 {
-    $name = mysqli_real_escape_string($con, $_POST['name']);
-    $email = mysqli_real_escape_string($con, $_POST['email']);
-    $phone = mysqli_real_escape_string($con, $_POST['phone']);
-    $course = mysqli_real_escape_string($con, $_POST['course']);
+    $ziua = mysqli_real_escape_string($conn, $_POST['ziua']);
+    $lectia = mysqli_real_escape_string($conn, $_POST['lectia']);
+    $start_hour = mysqli_real_escape_string($conn, $_POST['start_hour']);
+    $end_hour = mysqli_real_escape_string($conn, $_POST['end_hour']);
 
-    $query = "INSERT INTO student (name,email,phone,course) VALUES ('$name','$email','$phone','$course')";
+ //   $query = "INSERT INTO lectii (ziua,lectia,start_hour,end_hour) VALUES ('$ziua','$lectia','$start_hour','$end_hour')";
+    
 
-    $query_run = mysqli_query($con, $query);
-    if($query_run)
+    require '../crud/verify_lectii.php';
+
+
+    $query_run = mysqli_query($conn, $query);
+    if( ($query_run) && ($end_hour>$start_hour) ) //inceput: 8:00 , sfarsit: 7:30 --gresit!!!
     {
-        $_SESSION['message'] = "Student Created Successfully";
-        header("Location: student-create.php");
+        $_SESSION['message'] = "Lecția a fost creată cu Succes!";
+        header("Location: lectie-create.php");
         exit(0);
     }
     else
     {
-        $_SESSION['message'] = "Student Not Created";
-        header("Location: student-create.php");
+        $_SESSION['message'] = "Lecția nu a fost Creată, oră incorectă! :(";
+        header("Location: lectie-create.php");
         exit(0);
     }
 }
